@@ -1,0 +1,6 @@
+*.suo
+packages/*
+*/obj/*
+*/bin/*
+UpgradeLog.htm
+*.user

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LastFmArtistGetter", "LastFmArtistGetter\LastFmArtistGetter.fsproj", "{84E9FD7E-7562-4CAB-B8A4-C4FC0D36DBAD}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "LastFmArtistGetter.Tests", "LastFmArtistGetter.Tests\LastFmArtistGetter.Tests.fsproj", "{0A53B448-E2EC-4EA3-9A0C-CCC6BBA6E126}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84E9FD7E-7562-4CAB-B8A4-C4FC0D36DBAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E9FD7E-7562-4CAB-B8A4-C4FC0D36DBAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E9FD7E-7562-4CAB-B8A4-C4FC0D36DBAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E9FD7E-7562-4CAB-B8A4-C4FC0D36DBAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A53B448-E2EC-4EA3-9A0C-CCC6BBA6E126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A53B448-E2EC-4EA3-9A0C-CCC6BBA6E126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A53B448-E2EC-4EA3-9A0C-CCC6BBA6E126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A53B448-E2EC-4EA3-9A0C-CCC6BBA6E126}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
