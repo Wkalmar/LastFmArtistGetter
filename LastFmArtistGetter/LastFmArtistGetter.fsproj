@@ -60,6 +60,7 @@
     <Compile Include="TopArtists.fs" />
     <Compile Include="ArtistInfo.fs" />
     <Compile Include="ArtistShortInfo.fs" />
+    <Compile Include="ROPHelper.fs" />
     <Compile Include="BL.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />

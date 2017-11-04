@@ -8,14 +8,20 @@ module BLTests =
     [<Fact>]
     let removeAlreadyRecomendedArtists_returns_expected_result() =         
         let result = removeAlreadyRecomendedArtists [|"Serj Tankian"; "Richard Chartier"; "Alter Bridge"; "Genocide Organ"|]
-        Assert.Equal(result.[0], "Richard Chartier")
-        Assert.Equal(result.[1], "Genocide Organ")
+        match result with
+        | Success s ->
+            Assert.Equal(s.[0], "Richard Chartier")
+            Assert.Equal(s.[1], "Genocide Organ")
+        | Failure _ -> Assert.True(false)
 
     [<Fact>]
     let getUrlEncodedArtistNames_returns_expected_result() =
         let result = getUrlEncodedArtistNames [|"Bohren & Der Club Of Gore"; "Цукор Біла Смерть"|]
-        Assert.Equal(result.[0], "Bohren+%26+Der+Club+Of+Gore")
-        Assert.Equal(result.[1], "%d0%a6%d1%83%d0%ba%d0%be%d1%80+%d0%91%d1%96%d0%bb%d0%b0+%d0%a1%d0%bc%d0%b5%d1%80%d1%82%d1%8c")
+        match result with
+        | Success s ->
+            Assert.Equal(s.[0], "Bohren+%26+Der+Club+Of+Gore")
+            Assert.Equal(s.[1], "%d0%a6%d1%83%d0%ba%d0%be%d1%80+%d0%91%d1%96%d0%bb%d0%b0+%d0%a1%d0%bc%d0%b5%d1%80%d1%82%d1%8c")
+        | Failure _ -> Assert.True(false)
 
     let getArtistInfoStub input = 
         match input with
@@ -26,9 +32,12 @@ module BLTests =
     [<Fact>]
     let mapArtistNamesToArtistInfo_returns_expected_result() =
         let result = mapArtistNamesToArtistInfo getArtistInfoStub [| "Nokturanl Mortum"; "Heinali"; "Krobak"|]
-        Assert.Equal(result.[0], 1)
-        Assert.Equal(result.[1], 3)
-        Assert.Equal(result.[2], 2)
+        match result with 
+        | Success s ->
+            Assert.Equal(s.[0], 1)
+            Assert.Equal(s.[1], 3)
+            Assert.Equal(s.[2], 2)
+        | Failure _ -> Assert.True(false)
 
     [<Fact>]
     let orderArtistsByListenersCount_returns_expected_result() =
@@ -37,6 +46,9 @@ module BLTests =
         let Barber = {name = "Samuel Barber"; listeners = 371000}
         let artists = [|Satie; Chopin; Barber|]
         let result = orderArtistsByListenersCount artists
-        Assert.Equal(result.[0], Chopin)
-        Assert.Equal(result.[1], Satie)
-        Assert.Equal(result.[2], Barber)
+        match result with
+        | Success s -> 
+            Assert.Equal(s.[0], Chopin)
+            Assert.Equal(s.[1], Satie)
+            Assert.Equal(s.[2], Barber)
+        | Failure _ -> Assert.True(false)

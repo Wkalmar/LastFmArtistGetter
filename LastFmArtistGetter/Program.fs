@@ -1,12 +1,15 @@
 ﻿open LastFmArtistGetter
 
+let pipeline = 
+    getTopArtists
+        >=> getTopArtistNames
+        >=> removeAlreadyRecomendedArtists
+        >=> getUrlEncodedArtistNames 
+        >=> mapArtistNamesToArtistInfo getArtistInfo
+        >=> getArtistsShortInfo
+        >=> orderArtistsByListenersCount
+
 [<EntryPoint>]
 let main argv = 
-    let result = getTopArtists
-                |> getTopArtistNames
-                |> removeAlreadyRecomendedArtists
-                |> getUrlEncodedArtistNames 
-                |> mapArtistNamesToArtistInfo getArtistInfo
-                |> getArtistsShortInfo
-                |> orderArtistsByListenersCount                     
+    let result = pipeline()
     0
