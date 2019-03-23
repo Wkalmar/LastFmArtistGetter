@@ -26,12 +26,23 @@ module BL =
         "Alice in Chains"
         "Serj Tankian"
         "Porcupine Tree"
-        "The Mars Volta"
-        "Frank Zappa"
-        "Eddie Vedder"
-        "Alter Bridge"
-        "Opeth"
-        "Max Richter"
+        "The Mars Volta" 
+        "Frank Zappa" 
+        "Eddie Vedder" 
+        "Alter Bridge" 
+        "Opeth" 
+        "Max Richter" 
+        "Parkway Drive" 
+        "Nils Frahm" 
+        "Arvo Pärt" 
+        "Buckethead" 
+        "Riverside" 
+        "Agalloch" 
+        "Mahavishnu Orchestra" 
+        "Jefferson Airplane" 
+        "King Crimson" 
+        "Hammock" 
+        "坂本龍一" 
     |]
 
     let getTopArtists () = 
@@ -39,16 +50,16 @@ module BL =
             let path = String.Format(getTopArtistsPattern, baseUrl, userName, apiKey)
             let data = Http.Request(path)
             match data.Body with
-            | Text text -> Success(TopArtists.Parse(text).Topartists.Artist)
-            | _ -> Failure "getTopArtists. Unexpected format of reponse message"
+            | Text text -> Ok(TopArtists.Parse(text).Topartists.Artist)
+            | _ -> Error "getTopArtists. Unexpected format of reponse message"
         with
-        | ex -> Failure ex.Message
+        | ex -> Error ex.Message
 
     let getTopArtistNames (artists: TopArtists.Artist[])  =
         let names = 
             artists
                 |> Array.map (fun i -> i.Name)
-        Success(names)
+        Ok(names)
 
     let artistWasNotRecommended artist =
         (Array.contains artist alreadyRecomendedArtists) = false
@@ -57,22 +68,22 @@ module BL =
         let filtered = 
             artists
                 |> Array.filter (fun i -> artistWasNotRecommended i)
-        Success(filtered)
+        Ok(filtered)
 
     let getUrlEncodedArtistNames (artists: string[]) =
         let encoded = 
             artists
                 |> Array.map (fun i -> HttpUtility.UrlEncode i)
-        Success(encoded)
+        Ok(encoded)
 
     let mapArtistNamesToArtistInfo getArtistInfoFn artists = 
         try
             let artistInfos = 
                 artists
                     |> Array.map (fun i -> getArtistInfoFn i) 
-            Success(artistInfos)
+            Ok(artistInfos)
         with
-        | ex -> Failure ex.Message
+        | ex -> Error ex.Message
 
     exception GetArtistInfoFormatException of string
     
@@ -84,18 +95,21 @@ module BL =
         | _ -> raise(GetArtistInfoFormatException("getArtistInfo. Unexpected format of reponse message"))
 
     let mapArtistInfoToArtistShortInfo (artistInfo: ArtistInfo.Root) = 
-        let res = { name = artistInfo.Artist.Name; 
-                    listeners = artistInfo.Artist.Stats.Listeners }
-        res
+        try
+            let res = { name = artistInfo.Artist.Name; 
+                        listeners = artistInfo.Artist.Stats.Listeners }
+            res
+        with
+        | _ -> {name = "Not Found"; listeners = 0}
 
     let getArtistsShortInfo artists =
         let shortInfos = 
             artists
                 |> Array.map (fun i -> mapArtistInfoToArtistShortInfo i)
-        Success(shortInfos)
+        Ok(shortInfos)
 
     let orderArtistsByListenersCount artists =
         let ordered = 
                 artists
                     |> Array.sortBy (fun i -> -i.listeners)
-        Success(ordered)
+        Ok(ordered)

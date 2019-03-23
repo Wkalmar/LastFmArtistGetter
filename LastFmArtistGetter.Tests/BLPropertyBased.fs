@@ -9,8 +9,8 @@ module BLPropertyBased =
     let ``pairs from collection should be ordered`` orderFn artists =
         let orderedArtists = artists |> orderFn
         match orderedArtists with
-        | Success s -> s |> Array.pairwise |> Array.forall (fun (x,y) -> x.listeners >= y.listeners)
-        | Failure _ -> false
+        | Ok s -> s |> Array.pairwise |> Array.forall (fun (x,y) -> x.listeners >= y.listeners)
+        | Error _ -> false
     
     [<Property>]
     let pairwise x =
@@ -19,8 +19,8 @@ module BLPropertyBased =
     let ``should be permutation of original elements`` orderFn artists =
         let orderedArtists = artists |> orderFn
         match orderedArtists with
-        | Success s -> s |> List.ofArray |> isPermutationOf (List.ofArray artists)
-        | Failure _ -> false
+        | Ok s -> s |> List.ofArray |> isPermutationOf (List.ofArray artists)
+        | Error _ -> false
         
     [<Property>]
     let isPermutation x =
